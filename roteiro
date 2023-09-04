@@ -1,0 +1,7 @@
+Exercicio 1
+
+1) ler a ordem da matriz
+2) alocar o vetor
+3) ler as entradas da diagonal principal e armazenar no vetor
+4) imprimir a matriz
+5) permitir a consulta de um elemento (ler linha e coluna onde ele se encontra)
