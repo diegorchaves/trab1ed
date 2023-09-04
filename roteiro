@@ -6,3 +6,18 @@ Exercicio 1
 4) imprimir a matriz
 5) permitir a consulta de um elemento (ler linha e coluna onde ele se encontra)
 6) se usuario digitar "-1", dar free e encerrar o programa
+
+-----------
+
+Exercicio 2
+
+1) ler as medidas da matriz
+2) ir lendo os valores do usuario, e se for diferente de zero armazenar na lista (for linhas * colunas)
+    -> vai ler o valor, scanear e mandar para a funcao, se esse valor for diferente de zero, criar um novo no na lista com esse valor
+3) imprimir a matriz
+    -> percorrer toda a lista, comparando linhas e colunas, se esse indice existir na lista imprimir o seu valor, se nao imprimir zero
+4) permitir a consulta de um elemento (ler linha e coluna onde ele se encontra)
+5) impressao do somatorio de uma linha
+    -> percorrer a lista enquanto a linha for igual a fornecida pelo usuario e ir acrescentando em um somador
+6) percentual de elementos nao nulos
+    -> comparar o tamanho da lista com o tamanho da matriz
