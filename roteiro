@@ -21,3 +21,10 @@ Exercicio 2
     -> percorrer a lista enquanto a linha for igual a fornecida pelo usuario e ir acrescentando em um somador
 6) percentual de elementos nao nulos
     -> comparar o tamanho da lista com o tamanho da matriz
+
+-----------
+
+Exercicio 3
+
+1) ler a ordem da matriz
+2) ler os valores do usuario, se ele digitar algo diferente de 1 quando i=j, armazenar, se ele digitar algo diferente de 0 quando i!=j, armazenar
