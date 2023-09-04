@@ -5,3 +5,4 @@ Exercicio 1
 3) ler as entradas da diagonal principal e armazenar no vetor
 4) imprimir a matriz
 5) permitir a consulta de um elemento (ler linha e coluna onde ele se encontra)
+6) se usuario digitar "-1", dar free e encerrar o programa
