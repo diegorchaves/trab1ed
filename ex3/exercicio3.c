@@ -6,10 +6,9 @@ int main()
 {   
     int n;
     char resposta;
-   
+    Lista* l;
 
     do{
-        Lista* l;
         l = lst_cria();
         
         printf("Digite a ordem da matriz:\n");
