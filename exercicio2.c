@@ -188,6 +188,24 @@ void imprimeee (Lista *l)
     printf ("\n");
 }
 
+void percentual (Lista *l, Esparsa *esparsa)
+{
+    float percentual;
+
+    Lista *p;
+    int tamanhoMatriz = esparsa->linhas * esparsa->colunas;
+    int tamanhoLista = 0;
+
+    for (p = l; p != NULL; p = p -> prox)
+    {
+        tamanhoLista++;
+    }
+
+    percentual = ((float)tamanhoLista/tamanhoMatriz) * 100;
+
+    printf ("O percentual de valores nao nulos na matriz eh %.0f %%\n", percentual);
+}
+
 int main ()
 {
     Esparsa *esparsa;
@@ -206,6 +224,8 @@ int main ()
     consulta (l, esparsa);
 
     somatorio (l);
+
+    percentual (l, esparsa);
 
     free (esparsa);
     freeLista (l);
