@@ -116,10 +116,11 @@ void freeLista (Lista *l)
 void consulta (Lista *l, Esparsa *esparsa)
 {
     int i, j;
-    Lista *p = l;
+    Lista *p;
 
     while (1)
     {
+        //p = l;
         printf ("Informe a linha para consultar (-1 para sair): ");
         scanf ("%d", &i);
         if (i == -1)
@@ -142,17 +143,13 @@ void consulta (Lista *l, Esparsa *esparsa)
             printf ("Fora dos limites da matriz.\n");
             continue;
         }
-
+        p = l;
         while (p != NULL && p->linha != i && p->coluna != j)
         {
             p = p->prox;
         }
-        if (p == NULL)
-        {
-            printf ("Elemento nao encontrado.\n");
-            continue;
-        }
-        else if (p->linha == i && p->coluna == j)
+
+        if (p->linha == i && p->coluna == j)
         {
             printf ("Elemento [%d][%d] eh %d\n", i,j, p->info);
         }
@@ -161,6 +158,34 @@ void consulta (Lista *l, Esparsa *esparsa)
             printf ("Elemento [%d][%d] eh %d\n", i,j, 0);
         }
     }
+}
+
+void somatorio (Lista *l)
+{
+    int linha, soma = 0;
+    Lista *p = l;
+    printf ("Informe a linha que deseja somar: ");
+    scanf ("%d", &linha);
+
+    while (p != NULL)
+    {
+        if (p->linha == linha)
+        {
+            soma += p->info;
+        }
+        p = p->prox;
+    }
+    printf ("A soma da linha %d eh %d\n", linha, soma);
+}
+
+void imprimeee (Lista *l)
+{
+    Lista *p;
+    for (p = l; p != NULL; p = p->prox)
+    {
+        printf ("%d ", p->info);
+    }
+    printf ("\n");
 }
 
 int main ()
@@ -176,7 +201,11 @@ int main ()
 
     imprimeEsparsa (l, esparsa);
 
+    //imprimeee (l);
+
     consulta (l, esparsa);
+
+    somatorio (l);
 
     free (esparsa);
     freeLista (l);
