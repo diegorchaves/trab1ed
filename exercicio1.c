@@ -9,15 +9,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int *alocaVetor (int ordem)
+
+typedef struct diagonal
 {
-    int *vetor = (int*)malloc(ordem * sizeof(int));
-    if (vetor == NULL)
+    int ordem;
+    int *vetor;
+} Diagonal;
+
+Diagonal *alocaStruct ()
+{
+    Diagonal *p = (Diagonal*)malloc(sizeof(Diagonal));
+    
+    if (p == NULL)
     {
-        printf ("Erro ao alocar o vetor.\n");
+        printf ("Falha ao alocar a struct.\n");
         exit (1);
     }
-    return vetor;
+    return p;
+}
+
+int *alocaVetor (int ordem)
+{
+    int *vet = (int*)malloc(sizeof(int)*ordem);
+    if (vet == NULL)
+    {
+        printf ("Falha ao alocar a struct.\n");
+        exit (1);
+    }
+    return vet;
 }
 
 void leOrdem (int *ordem)
@@ -26,28 +45,28 @@ void leOrdem (int *ordem)
     scanf ("%d", ordem);
 }
 
-void leEntradas (int *vetor, int ordem)
+void leEntradas (Diagonal *diagonal)
 {
-    for (int i = 0; i < ordem; i++)
+    for (int i = 0; i < diagonal->ordem; i++)
     {
         printf ("Informe a entrada para [%d][%d]: ", i, i);
-        scanf ("%d", &vetor[i]);
+        scanf ("%d", &diagonal->vetor[i]);
     }
 }
 
-void imprimeMatriz (int *vetor, int ordem)
+void imprimeMatriz (Diagonal *diagonal)
 {
-    for (int i = 0; i < ordem; i++)
+    for (int i = 0; i < diagonal->ordem; i++)
     {
-        for (int j = 0; j < ordem; j++)
+        for (int j = 0; j < diagonal->ordem; j++)
         {
-            printf ("%d ", (i==j) ? vetor[i] : 0);
+            printf ("%d ", (i==j) ? diagonal->vetor[i] : 0);
         }
         printf ("\n");
     }
 }
 
-void consultaMatriz (int *vetor, int ordem)
+void consultaMatriz (Diagonal *diagonal)
 {
     int i, j;
 
@@ -59,7 +78,7 @@ void consultaMatriz (int *vetor, int ordem)
         {
             exit (1);
         }
-        else if (i >= ordem)
+        else if (i >= diagonal->ordem)
         {
             printf ("Fora dos limites da matriz.\n");
             continue;
@@ -70,29 +89,31 @@ void consultaMatriz (int *vetor, int ordem)
         {
             exit (1);
         }
-        else if (j >= ordem)
+        else if (j >= diagonal->ordem)
         {
             printf ("Fora dos limites da matriz.\n");
             continue;
         }
-        printf ("O valor de [%d][%d] eh %d\n", i, j, (i == j) ? vetor[i] : 0);
+        printf ("O valor de [%d][%d] eh %d\n", i, j, (i == j) ? diagonal->vetor[i] : 0);
     }
 }
 
 int main ()
 {
-    int ordem;
-    int *vetor;
+    Diagonal *diagonal;
+
+    diagonal = alocaStruct ();
     
-    leOrdem (&ordem);
+    leOrdem (&diagonal->ordem);
 
-    vetor = alocaVetor (ordem);
+    diagonal->vetor = alocaVetor (diagonal->ordem);
 
-    leEntradas (vetor, ordem);
+    leEntradas (diagonal);
 
-    imprimeMatriz (vetor, ordem);
+    imprimeMatriz (diagonal);
 
-    consultaMatriz (vetor, ordem);
+    consultaMatriz (diagonal);
 
-    free (vetor);
+    free (diagonal->vetor);
+    free (diagonal);
 }
