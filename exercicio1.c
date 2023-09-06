@@ -1,14 +1,5 @@
-/*
-1) ler a ordem da matriz
-2) alocar o vetor
-3) ler as entradas da diagonal principal e armazenar no vetor
-4) imprimir a matriz
-5) permitir a consulta de um elemento (ler linha e coluna onde ele se encontra)
-6) se usuario digitar "-1", dar free e encerrar o programa */
-
 #include <stdio.h>
 #include <stdlib.h>
-
 
 typedef struct diagonal
 {
@@ -33,7 +24,7 @@ int *alocaVetor (int ordem)
     int *vet = (int*)malloc(sizeof(int)*ordem);
     if (vet == NULL)
     {
-        printf ("Falha ao alocar a struct.\n");
+        printf ("Falha ao alocar o vetor.\n");
         exit (1);
     }
     return vet;
@@ -76,6 +67,8 @@ void consultaMatriz (Diagonal *diagonal)
         scanf ("%d", &i);
         if (i == -1)
         {
+            free (diagonal->vetor);
+            free (diagonal);
             exit (1);
         }
         else if (i >= diagonal->ordem)
@@ -87,6 +80,8 @@ void consultaMatriz (Diagonal *diagonal)
         scanf ("%d", &j);
         if (j == -1)
         {
+            free (diagonal->vetor);
+            free (diagonal);
             exit (1);
         }
         else if (j >= diagonal->ordem)
@@ -114,6 +109,5 @@ int main ()
 
     consultaMatriz (diagonal);
 
-    free (diagonal->vetor);
-    free (diagonal);
+    return 0;
 }
