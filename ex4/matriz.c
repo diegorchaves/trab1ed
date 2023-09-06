@@ -42,3 +42,17 @@ void preenche_matriz(int m, int n, int z, int*** mat){
         }
     }
 }
+
+void desaloca_matriz (int m, int n, int*** mat){
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            free(mat[i][j]);
+        }
+    }
+
+    for(int i = 0; i < m; i++){
+            free(mat[i]);
+    }
+
+    free(mat);
+}
