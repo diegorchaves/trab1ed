@@ -67,7 +67,7 @@ Lista *leEntradasMatriz (Lista *l, Esparsa *esparsa)
     {
         for (int j = 0; j < esparsa->colunas; j++)
         {
-            printf ("Digite uma entrada para a matriz: ");
+            printf ("Digite a entrada [%d][%d] para a matriz: ", i, j);
             scanf ("%d", &entrada);
 
             if (entrada != 0)
@@ -120,7 +120,7 @@ void consulta (Lista *l, Esparsa *esparsa)
 
     while (1)
     {
-        //p = l;
+        p = l;
         printf ("Informe a linha para consultar (-1 para sair): ");
         scanf ("%d", &i);
         if (i == -1)
@@ -143,13 +143,13 @@ void consulta (Lista *l, Esparsa *esparsa)
             printf ("Fora dos limites da matriz.\n");
             continue;
         }
-        p = l;
-        while (p != NULL && p->linha != i && p->coluna != j)
+        
+        while (p != NULL && (p->linha != i || p->coluna != j))
         {
             p = p->prox;
         }
 
-        if (p->linha == i && p->coluna == j)
+        if (p != NULL && p->linha == i && p->coluna == j)
         {
             printf ("Elemento [%d][%d] eh %d\n", i,j, p->info);
         }
@@ -178,15 +178,15 @@ void somatorio (Lista *l)
     printf ("A soma da linha %d eh %d\n", linha, soma);
 }
 
-void imprimeee (Lista *l)
+/* void imprimeee (Lista *l)
 {
     Lista *p;
     for (p = l; p != NULL; p = p->prox)
     {
-        printf ("%d ", p->info);
+        printf ("Elemento [%d][%d] eh %d\n", p->linha, p->coluna, p->info);
     }
     printf ("\n");
-}
+} */
 
 void percentual (Lista *l, Esparsa *esparsa)
 {
@@ -219,7 +219,7 @@ int main ()
 
     imprimeEsparsa (l, esparsa);
 
-    //imprimeee (l);
+/*     imprimeee (l); */
 
     consulta (l, esparsa);
 
@@ -228,5 +228,8 @@ int main ()
     percentual (l, esparsa);
 
     free (esparsa);
+    
     freeLista (l);
+
+    return 0;
 }
