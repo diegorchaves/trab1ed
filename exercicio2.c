@@ -178,16 +178,6 @@ void somatorio (Lista *l)
     printf ("A soma da linha %d eh %d\n", linha, soma);
 }
 
-/* void imprimeee (Lista *l)
-{
-    Lista *p;
-    for (p = l; p != NULL; p = p->prox)
-    {
-        printf ("Elemento [%d][%d] eh %d\n", p->linha, p->coluna, p->info);
-    }
-    printf ("\n");
-} */
-
 void percentual (Lista *l, Esparsa *esparsa)
 {
     float percentual;
@@ -201,7 +191,7 @@ void percentual (Lista *l, Esparsa *esparsa)
         tamanhoLista++;
     }
 
-    percentual = ((float)tamanhoLista/tamanhoMatriz) * 100;
+    percentual = ((float)tamanhoLista/tamanhoMatriz) * 100.0;
 
     printf ("O percentual de valores nao nulos na matriz eh %.0f %%\n", percentual);
 }
@@ -218,8 +208,6 @@ int main ()
     l = leEntradasMatriz (l, esparsa);
 
     imprimeEsparsa (l, esparsa);
-
-/*     imprimeee (l); */
 
     consulta (l, esparsa);
 

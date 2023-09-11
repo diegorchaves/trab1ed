@@ -51,7 +51,7 @@ void imprimeMatriz (Diagonal *diagonal)
     {
         for (int j = 0; j < diagonal->ordem; j++)
         {
-            printf ("%d ", (i==j) ? diagonal->vetor[i] : 0);
+            printf ("%d ", (i == j) ? diagonal->vetor[i] : 0);
         }
         printf ("\n");
     }
