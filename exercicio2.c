@@ -63,9 +63,11 @@ Lista *novoNo (int linha, int coluna, int entrada, Lista *l, Esparsa *esparsa)
 Lista *leEntradasMatriz (Lista *l, Esparsa *esparsa)
 {
     int entrada;
-    for (int i = 0; i < esparsa->linhas; i++)
+    int i;
+    int j;
+    for (i = 0; i < esparsa->linhas; i++)
     {
-        for (int j = 0; j < esparsa->colunas; j++)
+        for (j = 0; j < esparsa->colunas; j++)
         {
             printf ("Digite a entrada [%d][%d] para a matriz: ", i, j);
             scanf ("%d", &entrada);
@@ -83,9 +85,11 @@ Lista *leEntradasMatriz (Lista *l, Esparsa *esparsa)
 void imprimeEsparsa (Lista *l, Esparsa *esparsa)
 {
     Lista *p = l;
-    for (int i = 0; i < esparsa->linhas; i++)
+    int i;
+    int j;
+    for (i = 0; i < esparsa->linhas; i++)
     {
-        for (int j = 0; j < esparsa->colunas; j++)
+        for (j = 0; j < esparsa->colunas; j++)
         {
 
             if (p != NULL && i == p->linha && j == p->coluna)
