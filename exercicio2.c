@@ -16,7 +16,7 @@ typedef struct esparsa
     struct lista *prim;
 } Esparsa;
 
-Esparsa *criaEsparsa ()
+Esparsa *criaEsparsa (Lista *l)
 {
     Esparsa *new;
     new = (Esparsa*)malloc(sizeof(Esparsa));
@@ -25,6 +25,7 @@ Esparsa *criaEsparsa ()
         printf ("Erro ao alocar esparsa.\n");
         exit (1);
     }
+    new->prim = l;
     return new;
 }
 
@@ -36,7 +37,7 @@ void leDadosEsparsa (Esparsa *esparsa)
     scanf ("%d", &esparsa->colunas);
 }
 
-Lista *novoNo (int linha, int coluna, int entrada, Lista *l, Esparsa *esparsa)
+Lista *novoNo (int linha, int coluna, int entrada, Esparsa *esparsa)
 {
     Lista *novoNo = (Lista*)malloc(sizeof(Lista));
     novoNo->prox = NULL;
@@ -44,60 +45,66 @@ Lista *novoNo (int linha, int coluna, int entrada, Lista *l, Esparsa *esparsa)
     novoNo->coluna = coluna;
     novoNo->info = entrada;
 
-    if (l == NULL)
+    if (esparsa->prim == NULL)
     {
-        l = novoNo;
+        return novoNo;
     }
     else
     {
-        Lista *p = l;
+        Lista *p = esparsa->prim;
         while (p->prox != NULL)
         {
             p = p->prox;
         }
         p->prox = novoNo;
     }
-    return l;
+    return esparsa->prim;
 }
 
-Lista *leEntradasMatriz (Lista *l, Esparsa *esparsa)
+Lista *leEntradasMatriz (Esparsa *esparsa)
 {
     int entrada;
     int i;
     int j;
-    for (i = 0; i < esparsa->linhas; i++)
-    {
-        for (j = 0; j < esparsa->colunas; j++)
-        {
-            printf ("Digite a entrada [%d][%d] para a matriz: ", i, j);
-            scanf ("%d", &entrada);
+    
+    do {
+        printf ("Digite a entrada para a matriz (0 para encerrar a insercao): ");
+        scanf ("%d", &entrada);
 
-            if (entrada != 0)
+        if (entrada != 0)
+        {
+            printf ("Digite a posicao que quer inserir a entrada (linha coluna): ");
+            scanf ("%d %d", &i, &j);
+            if (i >= esparsa->linhas || j >= esparsa->colunas)
             {
-                l = novoNo (i, j, entrada, l, esparsa);
+                printf ("Fora dos limites da matriz.\n");
+            }
+            else
+            {
+                esparsa->prim = novoNo (i, j, entrada, esparsa);
             }
         }
-    }
-    esparsa->prim = l;
-    return l;
+    } while (entrada != 0);
+            
+    return esparsa->prim;
 }
 
-void imprimeEsparsa (Lista *l, Esparsa *esparsa)
+void imprimeEsparsa (Esparsa *esparsa)
 {
-    Lista *p = l;
     int i;
     int j;
     for (i = 0; i < esparsa->linhas; i++)
     {
         for (j = 0; j < esparsa->colunas; j++)
         {
-
-            if (p != NULL && i == p->linha && j == p->coluna)
+            Lista *p = esparsa->prim;
+            while (p != NULL && (i != p->linha || j != p->coluna))
             {
-                printf ("%d ", p->info);
                 p = p->prox;
             }
-            else
+            if(p != NULL){
+                printf ("%d ", p->info);
+            }else
             {
                 printf ("%d ", 0);
             }
@@ -117,14 +124,14 @@ void freeLista (Lista *l)
     }
 }
 
-void consulta (Lista *l, Esparsa *esparsa)
+void consulta (Esparsa *esparsa)
 {
     int i, j;
     Lista *p;
 
     while (1)
     {
-        p = l;
+        p = esparsa->prim;
         printf ("Informe a linha para consultar (-1 para sair): ");
         scanf ("%d", &i);
         if (i == -1)
@@ -164,10 +171,10 @@ void consulta (Lista *l, Esparsa *esparsa)
     }
 }
 
-void somatorio (Lista *l)
+void somatorio (Esparsa *esparsa)
 {
     int linha, soma = 0;
-    Lista *p = l;
+    Lista *p = esparsa->prim;
     printf ("Informe a linha que deseja somar: ");
     scanf ("%d", &linha);
 
@@ -182,7 +189,7 @@ void somatorio (Lista *l)
     printf ("A soma da linha %d eh %d\n", linha, soma);
 }
 
-void percentual (Lista *l, Esparsa *esparsa)
+void percentual (Esparsa *esparsa)
 {
     float percentual;
 
@@ -190,7 +197,7 @@ void percentual (Lista *l, Esparsa *esparsa)
     int tamanhoMatriz = esparsa->linhas * esparsa->colunas;
     int tamanhoLista = 0;
 
-    for (p = l; p != NULL; p = p -> prox)
+    for (p = esparsa->prim; p != NULL; p = p -> prox)
     {
         tamanhoLista++;
     }
@@ -203,21 +210,21 @@ void percentual (Lista *l, Esparsa *esparsa)
 int main ()
 {
     Esparsa *esparsa;
-    Lista *l;
+    Lista *l = NULL;
 
-    esparsa = criaEsparsa ();
+    esparsa = criaEsparsa (l);
 
     leDadosEsparsa (esparsa);
 
-    l = leEntradasMatriz (l, esparsa);
+    esparsa->prim = leEntradasMatriz (esparsa);
 
-    imprimeEsparsa (l, esparsa);
+    imprimeEsparsa (esparsa);
 
-    consulta (l, esparsa);
+    consulta (esparsa);
 
-    somatorio (l);
+    somatorio (esparsa);
 
-    percentual (l, esparsa);
+    percentual (esparsa);
 
     free (esparsa);
     
